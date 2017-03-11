@@ -1,0 +1,10 @@
+<h1>Product List</h1>
+
+<div class="filter-container">
+    <div>Search: <input type="text" ng-model="vm.textFilter"></input></div>
+    <div>Show only new items: <input type="checkbox" ng-model="vm.isNewFilter"></input></div>
+</div>
+
+<thj-product ng-repeat="product in vm.products | orderBy: 'name' | filter: { name: vm.textFilter } | filter: vm.filterIsNew" 
+             thj-data="product"
+             ui-sref="productDetail({ id: product.id })"></thj-product>
