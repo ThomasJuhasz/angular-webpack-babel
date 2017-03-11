@@ -5,17 +5,19 @@ var process = require('process');
 var webpack = require('webpack');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const extractLess = new ExtractTextPlugin({
+    filename: "styles.[contenthash].css",
+    disable: process.env.NODE_ENV === "development"
+});
+
 module.exports = {
     context: __dirname + '/src',
-    entry: function () {
-        var entries = getPages();
-        entries.vendor = ['angular', 'angular-ui-router']
-        return entries;
-    }(),
+    entry: getEntries(),
     output: {
         path: __dirname + '/dist',
-        filename: "[name].bundle.js",
-        chunkFilename: "[id].chunk.js"
+        filename: "[name].[chunkhash].bundle.js",
+        chunkFilename: "[id].[chunkhash].chunk.js"
     },
     module: {
         rules: [
@@ -31,6 +33,18 @@ module.exports = {
                         minimize: false
                     }
                 }],
+            },
+            {
+                test: /\.less$/,
+                use: extractLess.extract({
+                    use: [{
+                        loader: "css-loader"
+                    }, {
+                        loader: "less-loader"
+                    }],
+                    // use style-loader in development
+                    fallback: "style-loader"
+                })
             }
         ]
     },
@@ -44,20 +58,27 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: "vendor",
             filename: "vendor.bundle.js"
-        })
+        }),
+        extractLess
     ]
 };
 
+
+function getEntries() {
+    var entries = getPages();
+
+    entries.vendor = ['angular', 'angular-ui-router']
+
+    return entries;
+}
 function getPages() {
-    //productList: './app/pages/product-list/product-list.js',
     var pages = {};
-    // Loop through all the files in the temp directory
+
     var folders = fs.readdirSync('./src/app/pages/');
 
     folders.forEach(function (folder, index) {
         pages[folder] = './app/pages/' + folder + "/" + folder + ".js";
     });
 
-    console.error(pages);
     return pages;
 }

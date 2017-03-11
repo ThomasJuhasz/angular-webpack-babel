@@ -1,10 +1,12 @@
+require('../../../app');
+
 (function () {
     'use strict';
 
     angular.module('productListDemo')
         .controller('thjProductDetailsController', [thjProductDetailsController])
         .component('thjProductDetails', {
-            templateUrl: './app/components/product-details/product-details.html',
+            template: require('./product-details.html'),
             controller: 'thjProductDetailsController',
             controllerAs: 'vm',
             bindings: {
@@ -13,6 +15,6 @@
         });
 
     function thjProductDetailsController() {
-        
+
     }
 })();

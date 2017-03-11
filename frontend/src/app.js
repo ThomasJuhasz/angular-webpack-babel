@@ -1,3 +1,5 @@
+require('./less/site.less');
+
 (function () {
     'use strict';
 
