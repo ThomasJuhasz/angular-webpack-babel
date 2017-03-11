@@ -17,7 +17,7 @@ var corsOptions = {
 };
 
 server.use(cors(corsOptions))
-server.use('/', express.static(__dirname + '/../'));
+server.use('/', express.static(__dirname + '/../../frontend/dist'));
 server.use(cors());
 server.options('*', cors());
 

@@ -2,7 +2,7 @@
     "vsicons.projectDetection.disableDetect": true,
     "files.autoSave": "onFocusChange",
     "git.confirmSync": false,
-    "window.zoomLevel": 0,
+    "window.zoomLevel": 1,
     "workbench.iconTheme": "vscode-icons",
     "editor.minimap.enabled": true,
     "editor.formatOnSave": true,

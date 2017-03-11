@@ -1,13 +1,17 @@
+var fs = require('fs');
+var path = require('path');
+var process = require('process');
+
 var webpack = require('webpack');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
-var webpackUglifyJsPlugin = require('webpack-uglify-js-plugin');
 
 module.exports = {
     context: __dirname + '/src',
-    entry: {
-        vendor: ['angular', 'angular-ui-router'],
-        productList: './app/pages/product-list/product-list.js'
-    },
+    entry: function () {
+        var entries = getPages();
+        entries.vendor = ['angular', 'angular-ui-router']
+        return entries;
+    }(),
     output: {
         path: __dirname + '/dist',
         filename: "[name].bundle.js",
@@ -44,17 +48,16 @@ module.exports = {
     ]
 };
 
-/*
-        new webpackUglifyJsPlugin({
-            cacheFolder: __dirname + 'public/cached_uglify/',
-            debug: true,
-            minimize: true,
-            sourceMap: false,
-            output: {
-                comments: false
-            },
-            compressor: {
-                warnings: false
-            }
-        })
-*/
+function getPages() {
+    //productList: './app/pages/product-list/product-list.js',
+    var pages = {};
+    // Loop through all the files in the temp directory
+    var folders = fs.readdirSync('./src/app/pages/');
+
+    folders.forEach(function (folder, index) {
+        pages[folder] = './app/pages/' + folder + "/" + folder + ".js";
+    });
+
+    console.error(pages);
+    return pages;
+}
