@@ -1,22 +1,23 @@
-import { app } from '../../app.js'
+require('../../app');
+require('./httpService');
 
 (function () {
     'use strict';
 
-    app.factory('repository', ['$http', repository]);
+    angular.module('productListDemo').factory('repository', ['httpService', repository]);
 
-    function repository($http) {
+    function repository(httpService) {
         var publicMethods = {
             getProduct: getProduct,
-            getProducts: getProducts    
+            getProducts: getProducts
         };
 
         function getProduct(id) {
-            return $http.get('http://localhost:8080/api/product?id=' + id);
+            return httpService.get(`product?id=${id}`);
         }
 
         function getProducts() {
-            return $http.get('http://localhost:8080/api/products');
+            return httpService.get(`products`);
         }
 
         return publicMethods;

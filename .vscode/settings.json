@@ -1,5 +1,11 @@
 {
-    "vsicons.presets.angular": false,
+    "vsicons.projectDetection.disableDetect": true,
+    "files.autoSave": "onFocusChange",
+    "git.confirmSync": false,
+    "window.zoomLevel": 0,
+    "workbench.iconTheme": "vscode-icons",
+    "editor.minimap.enabled": true,
+    "editor.formatOnSave": true,
     "files.exclude": {
         "**/.git": false,
         "**/.svn": true,
