@@ -7,7 +7,7 @@ var HtmlwebpackPlugin = require('html-webpack-plugin');
 
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractLess = new ExtractTextPlugin({
-    filename: "styles.[contenthash].css",
+    filename: "style-[contenthash].bundle.css",
     disable: process.env.NODE_ENV === "development"
 });
 
@@ -16,8 +16,7 @@ module.exports = {
     entry: getEntries(),
     output: {
         path: __dirname + '/dist',
-        filename: "[name].[chunkhash].bundle.js",
-        chunkFilename: "[id].[chunkhash].chunk.js"
+        filename: "[name]-[chunkhash].bundle.js"
     },
     module: {
         rules: [
@@ -57,7 +56,7 @@ module.exports = {
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: "vendor",
-            filename: "vendor.bundle.js"
+            filename: "vendor-[chunkhash].bundle.js"
         }),
         extractLess
     ]

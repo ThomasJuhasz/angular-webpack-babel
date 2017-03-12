@@ -8,6 +8,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "cd backend && npm install && cd ../frontend && npm install && cd..",
-    "start": "cd backend && npm start && cd.."
+    "build": "cd frontend && npm run build && cd..",
+    "start": "npm run install && cd frontend && npm run build && cd ../backend && npm start && cd..",
+    "serve": "cd backend && npm start && cd..",
+    "cleanall": "cd frontend && npm run fullclean && cd ../backend npm run fullclean && cd.."
   }
 }

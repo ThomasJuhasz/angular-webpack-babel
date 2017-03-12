@@ -6,10 +6,16 @@
   "author": "Thomas Juhász",
   "license": "ISC",
   "scripts": {
-    "build": "./node_modules/.bin/webpack",
-    "buildwatch": "./node_modules/.bin/webpack --watch",
-    "serve": "./node_modules/.bin/webpack-dev-server",
-    "start": "npm run build && npm run serve"
+    "preinstall": "npm install rimraf -g",
+    "clean": "rimraf dist",
+    "cleanall": "npm uninstall rimraf && npm run clean && rimraf node_modules",
+    "webpack": "./node_modules/.bin/webpack",
+    "webpackwatch": "./node_modules/.bin/webpack --watch",
+    "webpackserve": "./node_modules/.bin/webpack-dev-server",
+    "build": "npm run clean && npm run webpack",
+    "buildwatch": "npm run clean && npm run webpackwatch",
+    "serve": "npm run webpackserve",
+    "start": "npm install && npm run build && npm run serve"
   },
   "dependencies": {
     "angular": "1.6.1",
