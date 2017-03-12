@@ -44,7 +44,11 @@ module.exports = {
                     // use style-loader in development
                     fallback: "style-loader"
                 })
-            }
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg|ico)$/i,
+                loader: 'file-loader'
+            },
         ]
     },
     plugins: [
@@ -52,7 +56,8 @@ module.exports = {
             debug: true
         }),
         new HtmlwebpackPlugin({
-            template: 'index.html'
+            template: 'index.html',
+            favicon: 'images/favicon.ico'
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: "vendor",
